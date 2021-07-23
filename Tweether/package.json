@@ -1,0 +1,21 @@
+{
+  "name": "tweether",
+  "version": "1.0.0",
+  "description": "Decentralised twitter",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "dev": "npm run artifacts && next client",
+    "artifacts": "cp -r ./build/contracts/ ./client/web3/artifacts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@truffle/contract": "^4.3.25",
+    "next": "^11.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "web3": "^1.4.0"
+  }
+}
