@@ -17,7 +17,7 @@ contract TestTweetStorage {
         uint256 _expectedTweetId = 1;
 
         Assert.equal(
-            tweetStorage.createTweet(_userId, "Hello world!"),
+            tweetStorage.createTweet("Hello world!"),
             _expectedTweetId,
             "Should create tweet with ID 1"
         );

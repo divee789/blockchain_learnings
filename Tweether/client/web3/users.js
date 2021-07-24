@@ -6,20 +6,50 @@ loadWeb3();
 
 export const getUserInfo = async (userId) => {
   const storage = await getInstance(UserStorage);
-  const { id, username } = await storage.methods.profiles(userId).call();
+  const profile = await storage.methods.profiles(userId).call();
+  const { id, username, firstName, lastName, bio, gravatarEmail } = profile;
+
+  if (!parseInt(id)) throw "Couldn't find user!";
+
   return {
     id: parseInt(id),
     username: window.web3.utils.toAscii(username).replace(/\u0000/g, ""),
+    firstName: window.web3.utils.toAscii(firstName).replace(/\u0000/g, ""),
+    lastName: window.web3.utils.toAscii(lastName).replace(/\u0000/g, ""),
+    bio,
+    gravatarEmail,
   };
 };
 
-export const createUser = async (username) => {
+export const getLoggedInUserId = async () => {
+  try {
+    const addresses = await window.web3.eth.getAccounts();
+
+    if (!addresses) return;
+
+    const storage = await getInstance(UserStorage);
+    console.log(storage);
+    const userId = await storage.methods.addresses(addresses[0]).call();
+
+    return parseInt(userId);
+  } catch (err) {
+    console.error("Err:", err);
+  }
+};
+
+export const createUser = async (userName, firstName, lastName, Bio, Email) => {
   const controller = await getInstance(UserController);
 
   try {
     const addresses = await window.web3.eth.getAccounts();
     const result = await controller.methods
-      .createUser(window.web3.utils.fromAscii(username))
+      .createUser(
+        window.web3.utils.fromAscii(userName),
+        window.web3.utils.fromAscii(firstName),
+        window.web3.utils.fromAscii(lastName),
+        Bio,
+        Email
+      )
       .send({ from: addresses[0] });
 
     return result;
