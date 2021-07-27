@@ -1,12 +1,16 @@
 import Link from "next/link";
 import Avatar from "./Avatar";
+import ComposeIcon from "../icons/compose.svg";
 
-export default ({ userInfo }) => {
+export default ({ userInfo, toggleComposeModal }) => {
   const { firstName, lastName, username, gravatarEmail } = userInfo;
 
   return (
     <nav>
-      <Link href={`/profile?u=${username}`}>
+      <button onClick={toggleComposeModal}>
+        <img src={ComposeIcon} />
+      </button>
+      <Link href={`/${username}`}>
         <a className="username">
           <Avatar
             email={gravatarEmail}

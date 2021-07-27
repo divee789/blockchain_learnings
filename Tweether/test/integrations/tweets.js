@@ -52,6 +52,14 @@ contract("tweets", () => {
     assert.equal(parseInt(userId), 1);
   });
 
+  it("can get tweet ID based on index", async () => {
+    const storage = await TweetStorage.deployed();
+
+    const tweetId = await storage.tweetIds.call(0);
+
+    assert.equal(tweetId, 1);
+  });
+
   it("can get all tweets IDs from user", async () => {
     const storage = await TweetStorage.deployed();
 

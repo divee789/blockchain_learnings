@@ -4,6 +4,16 @@ import UserController from "./artifacts/UserController.json";
 
 loadWeb3();
 
+export const getUserIdFromUsername = async (username) => {
+  const storage = await getInstance(UserStorage);
+  username;
+  const userId = await storage.methods
+    .usernames(window.web3.utils.fromAscii(username))
+    .call();
+
+  return userId;
+};
+
 export const getUserInfo = async (userId) => {
   const storage = await getInstance(UserStorage);
   const profile = await storage.methods.profiles(userId).call();
@@ -28,7 +38,7 @@ export const getLoggedInUserId = async () => {
     if (!addresses) return;
 
     const storage = await getInstance(UserStorage);
-    console.log(storage);
+    storage;
     const userId = await storage.methods.addresses(addresses[0]).call();
 
     return parseInt(userId);

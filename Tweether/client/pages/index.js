@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
-
-import { getUserInfo, createUser } from "../web3/users";
-import { getTweetInfo, createTweet } from "../web3/tweets";
 
 import { Page, Center } from "../components/Layout";
 import Modal from "../components/Modal";
@@ -11,27 +9,23 @@ import RegistrationForm from "../components/RegistrationForm";
 
 import MetaMaskIcon from "../icons/metamask.svg";
 
+import { getLoggedInUserId } from "../web3/users";
+
 const HomePage = () => {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
-  const logUser = async () => {
-    const userInfo = await getUserInfo(1);
-    console.log(userInfo);
+  const router = useRouter();
+
+  const checkAuth = async () => {
+    const userId = await getLoggedInUserId();
+
+    if (userId) {
+      router.replace("/home");
+    }
   };
 
-  const createNewUser = async () => {
-    const tx = await createUser("divine");
-    console.log(tx);
-  };
-
-  const logTweet = async () => {
-    const tweetInfo = await getTweetInfo(1);
-    console.log(tweetInfo);
-  };
-
-  const createNewTweet = async () => {
-    const tx = await createTweet("Hello world!");
-    console.log(tx);
-  };
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
   return (
     <>
