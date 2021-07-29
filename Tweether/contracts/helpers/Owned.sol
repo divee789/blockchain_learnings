@@ -2,10 +2,13 @@
 pragma solidity ^0.8.6;
 
 contract Owned {
-    address public ownerAddr;
+    address payable public ownerAddr;
+    address payable public newOwner;
+
+    event OwnershipTransferred(address indexed _from, address indexed _to);
 
     constructor() {
-        ownerAddr = msg.sender;
+        ownerAddr = payable(msg.sender);
     }
 
     modifier onlyOwner() {
@@ -13,10 +16,17 @@ contract Owned {
         _;
     }
 
-    function transferOwnership(address _newOwner) public onlyOwner {
+    function transferOwnership(address payable _newOwner) public onlyOwner {
         // The new address cannot be null:
         require(_newOwner != address(0));
 
         ownerAddr = _newOwner;
+    }
+
+    function acceptOwnership() public {
+        require(msg.sender == newOwner);
+        emit OwnershipTransferred(ownerAddr, newOwner);
+        ownerAddr = newOwner;
+        newOwner = payable(address(0));
     }
 }

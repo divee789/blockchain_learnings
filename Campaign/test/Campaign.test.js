@@ -55,7 +55,7 @@ contract("CampaignFactory", (accounts) => {
       const c = await campaign.getContribution({
         from: accounts[1],
       });
-      //   console.log(c.toString(10));
+      //   (c.toString(10));
       assert(await campaign.approvers(accounts[1]), true);
       assert((await campaign.contributions(accounts[1])) > 0);
     });
@@ -71,8 +71,8 @@ contract("CampaignFactory", (accounts) => {
       await campaign.createRequest("DevOps", "100", accounts[1], {
         from: accounts[0],
       });
-      console.log("reuqetas");
-      console.log("reuqetas", campaign.requests[0]);
+      ("reuqetas");
+      "reuqetas", campaign.requests[0];
 
       //   assert((await campaign.requests[0].call()).description, "DevOps");
     });

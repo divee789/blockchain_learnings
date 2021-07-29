@@ -44,7 +44,7 @@ const App = () => {
         networkData.address
       );
       const productCount = await marketplace.methods.productCount().call();
-      console.log(productCount.toString());
+      productCount.toString();
       let products = state.products;
       for (var i = 1; i <= productCount; i++) {
         const product = await marketplace.methods.products(i).call();
