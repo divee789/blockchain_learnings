@@ -106,6 +106,11 @@ contract TweetherToken is ERC20Interface, Owned {
         override
         returns (bool success)
     {
+        require(tokens > 0, "You need to send some ether");
+        require(
+            balances[msg.sender] > tokens,
+            "Not enough tokens in the reserve"
+        );
         balances[msg.sender] -= tokens;
         balances[to] += tokens;
         emit Transfer(msg.sender, to, tokens);
@@ -145,6 +150,9 @@ contract TweetherToken is ERC20Interface, Owned {
         address to,
         uint256 tokens
     ) public virtual override returns (bool success) {
+        require(tokens > 0, "You need to send some ether");
+        require(balances[from] >= tokens, "Not enough tokens"); // the owner's balance can take this
+        require(allowed[from][msg.sender] >= tokens, "Not enough allowance"); // the allowed delegated transfer isnt crossed
         balances[msg.sender] -= tokens;
         allowed[from][msg.sender] -= tokens;
         balances[to] += tokens;
