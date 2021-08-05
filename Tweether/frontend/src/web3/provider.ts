@@ -59,6 +59,21 @@ export const addWalletListener = (
   }
 };
 
+export const addSmartContractListeners = (callback: () => void) => {
+  // const tweetStorage = getAlchemyInstance(
+  //   TweetStorage.abi,
+  //   TweetStorageAddress
+  // );
+  // tweetStorage.events.NewTweet({}, (error: any, data: any) => {
+  //   if (error) {
+  //     console.log("TWEETS EVENT ERROR", error);
+  //   } else {
+  //     console.log("TWEETS EVENT DATA", data);
+  //     callback();
+  //   }
+  // });
+};
+
 export const getCurrentWalletConnected = async () => {
   if (window.ethereum) {
     try {

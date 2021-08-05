@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import TweetList from "../components/TweetList";
 import {
+  addSmartContractListeners,
   getLatestTweetIds,
   getTweetInfo,
   loadTweetsFromTweetPromises,
@@ -12,6 +13,7 @@ const HomePage = () => {
 
   useEffect(() => {
     loadLatestTweets();
+    addSmartContractListeners(loadLatestTweets);
   }, []);
 
   const loadLatestTweets = async () => {
