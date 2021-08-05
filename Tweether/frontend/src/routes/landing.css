@@ -1,0 +1,34 @@
+.landing_nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.hero_center {
+  margin-top: 7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.hero_center .right_side {
+  text-align: center;
+}
+
+.hero_center h1 {
+  width: 75%;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 2.3rem;
+  line-height: 3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.hero_center button {
+  margin-top: 2rem;
+}

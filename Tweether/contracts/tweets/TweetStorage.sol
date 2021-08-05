@@ -17,6 +17,9 @@ contract TweetStorage is BaseStorage {
 
     uint256 latestTweetId = 0;
 
+    //Emitted when createTweet function is called
+    event NewTweet(uint256 indexed userId, uint256 indexed tweetId);
+
     function createTweet(uint256 _userId, string memory _text)
         public
         onlyController
@@ -32,6 +35,7 @@ contract TweetStorage is BaseStorage {
         );
         userTweetIds[_userId].push(latestTweetId);
         tweetIds.push(latestTweetId);
+        emit NewTweet(_userId, latestTweetId);
 
         return latestTweetId;
     }

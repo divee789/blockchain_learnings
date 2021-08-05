@@ -43,13 +43,4 @@ contract UserStorage is BaseStorage {
 
         return latestUserId;
     }
-
-    // This is redundant becuase we have defined public on the profiles variable. So an automatic getter is specified on the profiles by solidity by default
-    // function getUserFromId(uint256 _userId)
-    //     public
-    //     view
-    //     returns (uint256, bytes32)
-    // {
-    //     return (profiles[_userId].id, profiles[_userId].username);
-    // }
 }

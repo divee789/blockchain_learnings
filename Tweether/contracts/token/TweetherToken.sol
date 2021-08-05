@@ -39,18 +39,6 @@ interface ERC20Interface {
 }
 
 // ----------------------------------------------------------------------------
-// Contract function to receive approval and execute function in one call
-// ----------------------------------------------------------------------------
-interface ApproveAndCallFallBack {
-    function receiveApproval(
-        address from,
-        uint256 tokens,
-        address token,
-        bytes memory data
-    ) external;
-}
-
-// ----------------------------------------------------------------------------
 // ERC20 Token, with the addition of symbol, name and decimals and a
 // fixed supply
 // ----------------------------------------------------------------------------
@@ -172,27 +160,6 @@ contract TweetherToken is ERC20Interface, Owned {
         returns (uint256 remaining)
     {
         return allowed[tokenOwner][spender];
-    }
-
-    // ------------------------------------------------------------------------
-    // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner's account. The `spender` contract function
-    // `receiveApproval(...)` is then executed
-    // ------------------------------------------------------------------------
-    function approveAndCall(
-        address spender,
-        uint256 tokens,
-        bytes memory data
-    ) public returns (bool success) {
-        allowed[msg.sender][spender] = tokens;
-        emit Approval(msg.sender, spender, tokens);
-        ApproveAndCallFallBack(spender).receiveApproval(
-            msg.sender,
-            tokens,
-            address(this),
-            data
-        );
-        return true;
     }
 
     // ------------------------------------------------------------------------

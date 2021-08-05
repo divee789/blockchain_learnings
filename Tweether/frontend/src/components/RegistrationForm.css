@@ -1,0 +1,91 @@
+.contact_section .logo_container {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.contact_section h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+@media screen and (max-width: 600px) {
+  .contact_section h2 {
+    font-size: 2rem;
+  }
+}
+
+.contact_section form {
+  width: 95%;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 600px) {
+  .contact_section form div {
+    flex-direction: column;
+    margin-bottom: 0;
+  }
+}
+
+.contact_section form input,
+.contact_section form select,
+.contact_section form textarea {
+  width: 100%;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  background: #fff;
+  padding: 10px;
+  height: 1.3rem;
+  box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 600px) {
+  .contact_section form input,
+  .contact_section form select,
+  .contact_section form textarea {
+    font-size: 14px;
+    width: 100%;
+    margin-bottom: 3rem;
+  }
+}
+
+.contact_section form input:focus,
+.contact_section form select:focus,
+.contact_section form textarea:focus {
+  outline: 1px solid #3c50e0;
+}
+
+.contact_section form label {
+  margin-top: 0.8rem;
+  display: block;
+  font-size: 0.8rem;
+}
+
+.contact_section form textarea {
+  width: 100%;
+}
+
+.contact_section form button {
+  width: 100%;
+  font-size: 1rem;
+  margin-top: 3rem;
+}
+
+.contact_section form .alert-success {
+  background-color: #141e6c;
+  box-shadow: 0px 0px 2px #259c08;
+  padding: 3rem 5rem;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  border-radius: 5px;
+  font-size: 1.2rem;
+}
