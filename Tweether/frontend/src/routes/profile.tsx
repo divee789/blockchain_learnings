@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import TweetList from "../components/TweetList";
 
 import {
@@ -9,13 +10,14 @@ import {
   loadTweetsFromTweetPromises,
 } from "../web3/provider";
 
-const ProfilePage = (props: { userName: string }) => {
+const ProfilePage = () => {
   const [profile, setProfile] = useState<any>({});
   const [tweets, setTweets] = useState<any[]>([]);
+  const { user }: any = useParams();
 
   useEffect(() => {
     const getData = async () => {
-      const userId = await getUserIdFromUsername(props.userName);
+      const userId = await getUserIdFromUsername(user);
       loadProfile(userId);
       loadTweets(userId);
     };
@@ -44,7 +46,7 @@ const ProfilePage = (props: { userName: string }) => {
   const { username, firstName, lastName, bio, gravatarEmail } = profile;
 
   return (
-    <section>
+    <section className="profile_section">
       {username && (
         <div>
           <div className="profile-top">

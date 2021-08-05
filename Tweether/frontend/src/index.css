@@ -23,4 +23,22 @@ button {
   background-color: #3c50e0;
   color: #fff;
   padding: 0 1rem;
+  font-size: 0.8rem;
+}
+
+a {
+  color: #3c50e0;
+  text-decoration: none;
+}
+
+textarea {
+  width: 100%;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  background: #fff;
+  padding: 10px;
+  height: 3.3rem;
+  box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  overflow: hidden;
 }

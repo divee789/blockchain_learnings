@@ -27,10 +27,12 @@ contract("Users", () => {
     const controller = await UserController.deployed();
 
     const username = web3.utils.fromAscii("divine");
+    const firstName = web3.utils.fromAscii("Divine");
+    const lastName = web3.utils.fromAscii("Olokor");
     const tx = await controller.createUser(
       username,
-      "Divine",
-      "Olokor",
+      firstName,
+      lastName,
       "I like building stuff",
       "example@example.com"
     );

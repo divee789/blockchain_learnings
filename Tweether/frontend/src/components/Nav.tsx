@@ -1,17 +1,17 @@
 import { Link } from "react-router-dom";
 
 const Navbar = ({ userInfo, toggleComposeModal }: any) => {
-  const { firstName, lastName } = userInfo;
+  const { firstName, lastName, username } = userInfo;
 
   return (
-    <nav>
-      <button onClick={toggleComposeModal}>Compose Tweet</button>
-      <Link to={`/profile`}>
+    <div className="nav_user">
+      <button onClick={toggleComposeModal}>Compose Post</button>
+      <Link to={`/profile/${username}`}>
         <span>
           {firstName} {lastName}
         </span>
       </Link>
-    </nav>
+    </div>
   );
 };
 

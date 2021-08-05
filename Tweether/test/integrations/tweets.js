@@ -36,7 +36,7 @@ contract("tweets", () => {
   it("can create tweet with controller", async () => {
     const controller = await TweetController.deployed();
 
-    const tx = await controller.createTweet(1, "Hello world!");
+    const tx = await controller.createTweet("Hello world!");
 
     assert.isOk(tx);
   });
@@ -64,7 +64,7 @@ contract("tweets", () => {
     const storage = await TweetStorage.deployed();
 
     const userId = 1;
-    const ids = await storage.getTweetIdsFromUser(userId).call();
+    const ids = await storage.getTweetIdsFromUser.call(userId);
 
     const expectedTweetId = 1;
 

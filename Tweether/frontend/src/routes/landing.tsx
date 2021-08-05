@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import Modal from "../components/Modal";
-import Button from "../components/Button";
 import RegistrationForm from "../components/RegistrationForm";
 
 import { connectWallet } from "../web3/provider";

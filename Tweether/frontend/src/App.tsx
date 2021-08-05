@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import {
   getLoggedInUserId,
   getUserInfo,
@@ -15,8 +15,10 @@ import Nav from "./components/Nav";
 import Modal from "./components/Modal";
 import TweetComposer from "./components/TweetComposer";
 
+import "./App.css";
+
 function App() {
-  const [state, setState] = useState<any>({
+  const [state, setState] = useState({
     loggedIn: false,
     userInfo: {},
     showComposeModal: false,
@@ -51,13 +53,10 @@ function App() {
   };
 
   const bootstrapUserInfo = async () => {
-    console.log("WALLET", wallet);
     try {
       setAppReady(false);
       const userId = await getLoggedInUserId(wallet);
-      console.log("USER ID", userId);
       const userInfo = await getUserInfo(userId as number);
-      console.log("USER INFO", userInfo);
       setState({
         ...state,
         loggedIn: true,
@@ -100,33 +99,40 @@ function App() {
 
   return appReady ? (
     <Router>
-      <nav>
-        {state.loggedIn && (
+      {state.loggedIn && (
+        <nav className="app_nav">
+          <div>
+            <Link to="/">Tweether</Link>
+          </div>
           <Nav
             userInfo={state.userInfo}
             toggleComposeModal={toggleComposeModal}
           />
-        )}
-        {state.showComposeModal && (
-          <Modal close={toggleComposeModal} open={state.showComposeModal}>
-            <TweetComposer onClose={toggleComposeModal} userAddress={wallet} />
-          </Modal>
-        )}
-      </nav>
+          {state.showComposeModal && (
+            <Modal close={toggleComposeModal} open={state.showComposeModal}>
+              <TweetComposer
+                onClose={toggleComposeModal}
+                userAddress={wallet}
+              />
+            </Modal>
+          )}
+        </nav>
+      )}
       <Switch>
-        {!state.loggedIn ? (
-          <Route exact>
+        {!state.loggedIn && (
+          <Route exact path="/">
             <Landing walletAddress={wallet} setWallet={setWallet} />
           </Route>
-        ) : (
-          <>
-            <Route exact>
-              <HomePage />
-            </Route>
-            <Route path="/profile">
-              <Profile userName={state.userInfo.username} />
-            </Route>
-          </>
+        )}
+        {state.loggedIn && (
+          <Route exact path="/">
+            <HomePage />
+          </Route>
+        )}
+        {state.loggedIn && (
+          <Route exact path="/profile/:user">
+            <Profile />
+          </Route>
         )}
       </Switch>
     </Router>

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Button from "./Button";
 
 import { createUser } from "../web3/provider";
 
@@ -24,6 +23,9 @@ const RegistrationForm = (props: { walletAddress: string }) => {
     bio: "",
   });
 
+  const [feedback, setFeedback] = useState<string>(null as unknown as string);
+  const [loading, setLoading] = useState(false);
+
   const updateField = (fieldName: string, e: { target: { value: any } }) => {
     const newState: any = {};
     newState[fieldName] = e.target.value;
@@ -44,8 +46,10 @@ const RegistrationForm = (props: { walletAddress: string }) => {
 
     const { firstName, lastName, username, bio, gravatarEmail } = state;
 
+    setLoading(true);
+
     try {
-      await createUser(
+      const txHash = await createUser(
         props.walletAddress,
         username,
         firstName,
@@ -54,9 +58,13 @@ const RegistrationForm = (props: { walletAddress: string }) => {
         gravatarEmail
       );
 
-      alert("Your user has been created!");
+      setFeedback(txHash);
+      alert("Your account is being created");
+      setLoading(false);
     } catch (err) {
-      alert(`Sorry, we couldn't create your user: ${err}`);
+      alert(`Sorry, we couldn't create your user`);
+      console.log(err);
+      setLoading(false);
     }
   };
 
@@ -91,9 +99,24 @@ const RegistrationForm = (props: { walletAddress: string }) => {
 
         <Input title="Bio" onChange={(e: any) => updateField("bio", e)} />
 
-        <footer>
-          <Button onClick={() => createNewUser()}>Create</Button>
-        </footer>
+        <button onClick={() => createNewUser()} disabled={loading}>
+          {loading ? "Please wait..." : "Create account"}
+        </button>
+
+        {feedback && (
+          <div>
+            <p>
+              Check the status of your transaction:
+              <a
+                target="_blank"
+                href={`https://ropsten.etherscan.io/tx/${feedback}`}
+                rel="noreferrer"
+              >
+                {feedback}
+              </a>
+            </p>
+          </div>
+        )}
       </form>
     </section>
   );

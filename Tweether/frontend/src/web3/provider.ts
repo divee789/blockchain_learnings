@@ -47,6 +47,7 @@ export const addWalletListener = (
 ) => {
   if (window.ethereum) {
     window.ethereum.on("accountsChanged", (accounts: any[]) => {
+      console.log("Account changed", accounts);
       if (accounts.length > 0) {
         callback(accounts[0]);
       } else {
@@ -268,7 +269,7 @@ export const createTweet = async (text: string, address: string) => {
   const result = await sendTransaction(
     TweetControllerAddress,
     address,
-    tweetController.methods.createTweet(web3.utils.fromAscii(text))
+    tweetController.methods.createTweet(text)
   );
 
   return result;

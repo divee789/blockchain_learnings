@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-
 import TweetList from "../components/TweetList";
 import {
   getLatestTweetIds,
@@ -9,12 +8,14 @@ import {
 
 const HomePage = () => {
   const [tweets, setTweets] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     loadLatestTweets();
   }, []);
 
   const loadLatestTweets = async () => {
+    setLoading(true);
     const tweetIds = await getLatestTweetIds();
 
     const tweetPromises = tweetIds.map((tweetId) => {
@@ -23,14 +24,17 @@ const HomePage = () => {
 
     const data = await loadTweetsFromTweetPromises(tweetPromises);
 
+    setLoading(false);
+
     setTweets(data);
   };
 
   return (
-    <div>
-      <h2>Latest tweets</h2>
+    <div className="tweets_body">
+      <h2>Latest posts</h2>
 
-      <TweetList tweets={tweets} />
+      {loading && <p>Fetching posts</p>}
+      {!loading && <TweetList tweets={tweets} />}
     </div>
   );
 };
