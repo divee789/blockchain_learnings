@@ -37,8 +37,16 @@ contract("tweets", () => {
     const controller = await TweetController.deployed();
 
     const tx = await controller.createTweet("Hello world!");
+    const { logs } = tx;
 
     assert.isOk(tx);
+    assert.ok(Array.isArray(logs));
+    assert.equal(logs.length, 1);
+
+    const log = logs[0];
+    assert.equal(log.event, "NewTweet");
+    // assert.equal(log.args.userId.toString(), "1");
+    // assert.equal(log.args.tweetId.toString(), "1");
   });
 
   it("can get tweet", async () => {
